@@ -23,8 +23,6 @@ class TestPvss():
         t = 3
 
         # Initiate participants, and generate their key-pairs
-        # participants = [pvss_participant.PVSS_participant(params) for i in range(n)]
-        # pub_keys = [participant.generate_key_pair() for participant in participants]
         priv_keys = []
         pub_keys = []
         for i in range(n):
@@ -68,7 +66,7 @@ class TestPvss():
         G = Gq.hash_to_point(b'G')
         params = (Gq, p, G, h)
 
-        # Decide on a secret to be distrubuted
+        # Decide on a secret to be distributed
         m = p-1
 
         # Set (t,n)-threshold parameters
@@ -76,8 +74,6 @@ class TestPvss():
         t = 3
 
         # Initiate participants, and generate their key-pairs
-        # participants = [pvss_participant.PVSS_participant(params) for i in range(n)]
-        # pub_keys = [participant.generate_key_pair() for participant in participants]
         priv_keys = []
         pub_keys = []
         for i in range(n):
@@ -124,8 +120,6 @@ class TestPvss():
         m = p.from_binary(b'This is a test')
 
         # Initiate participants, and generate their key-pairs
-        # participants = [pvss_participant.PVSS_participant(params) for i in range(n)]
-        # pub_keys = [participant.generate_key_pair() for participant in participants]
         priv_keys = []
         pub_keys = []
         for i in range(n):
@@ -175,11 +169,11 @@ class TestPvss():
         (expected_decryption, S_list, p) = self.helper_function_reconstruct(t, n)
 
         possible_indexes = range(n)
-        permutaions = itertools.combinations(possible_indexes, t)
+        permutations = itertools.combinations(possible_indexes, t)
 
-        for permutaion in permutaions:
-            S_list_local = [S_list[i] for i in permutaion]
-            index_list = [i+1 for i in permutaion]
+        for permutation in permutations:
+            S_list_local = [S_list[i] for i in permutation]
+            index_list = [i+1 for i in permutation]
             actual_decryption = pvss.decode(S_list_local, index_list, p)
 
             assert expected_decryption == actual_decryption
@@ -187,10 +181,7 @@ class TestPvss():
     def test_gen_polynomial(self):
         Gq = EcGroup()
         p = Gq.order()
-        # g = Gq.generator()
-        # G = Gq.hash_to_point(b'G')
-        # params = (Gq, p, g, G)
-
+        
         px = pvss.gen_polynomial(3, 42, p)
         for pi in px:
             assert pi < p
@@ -199,10 +190,8 @@ class TestPvss():
         Gq = EcGroup()
         p = Gq.order()
         g = Gq.generator()
-        # G = Gq.hash_to_point(b'G')
-        # params = (Gq, p, g, G)
-
-        # Decide on a secret to be distrubuted
+        
+        # Decide on a secret to be distributed
         m = p.from_binary(b'This is a test')
 
         t = 3
