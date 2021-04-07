@@ -90,7 +90,7 @@ def __get_encrypted_shares(pub_keys: pub_keys_type, shares: list[share_type]) ->
 
 def decode(S_list, index_list, p):
     '''
-    Calulates secret from participants decrypted shares
+    Calculates secret from participants decrypted shares
     '''
     assert len(S_list) == len(index_list)
 
@@ -122,7 +122,7 @@ def verify_correct_decryption(S_i, Y_i, decrypt_proof, pub_key, p, G):
 
 def batch_verify_correct_decryption(proved_decryptions, Y_list, pub_keys, p, G):
     '''
-    Verify all paricipants decryption of shares
+    Verify all participants decryption of shares
     '''
     for ((S_i, decrypt_proof), Y_i, pub_key) in zip(proved_decryptions, Y_list, pub_keys):
         if verify_correct_decryption(S_i, Y_i, decrypt_proof, pub_key, p, G) is False:
@@ -162,6 +162,9 @@ def participant_decrypt_and_prove(params, x_i, Y_i) -> tuple[decrypted_share_typ
 
 
 def get_pub_key(params, x_i):
+    '''
+    Returns the public key
+    '''
     (_, _, g0, G) = params
     y_i = x_i * g0
     return y_i

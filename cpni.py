@@ -3,6 +3,12 @@ from petlib.bn import Bn
 from hashlib import sha256
 from petlib.pack import encode
 
+'''
+An implementation of D. Chaum and T. P. Pedersen. Transferred cash grows in size. In Ad- vances in Cryptology—EUROCRYPT ’92, volume 658 of Lecture Notes in Computer Science, pages 390–407, Berlin, 1993. Springer-Verlag.
+as used in Berry Schoenmakers "A Simple Publicly Verifiable Secret Sharing Scheme and Its Application to Electronic Voting".
+
+This is an implementation a non interactive version of the protocol.
+'''
 
 def get_X_i_list(commitments, n):
     '''
@@ -80,7 +86,7 @@ def DLEQ_prove_list(p, g, C_list, Y_list, y_list, shares_list):
 
 def hash(p, h_1, h_2, a_1, a_2) -> Bn:
     '''
-    Calculates a cryptograpic hash for use in proof. Does work both for DLEQ of single objects and lists.
+    Calculates a cryptographic hash for use in proof. Does work both for DLEQ of single objects and lists.
     '''
     bin_hash = sha256(encode([h_1, h_2, a_1, a_2])).digest()
     return Bn.from_binary(bin_hash)
@@ -97,7 +103,7 @@ def __DLEQ_calc_all_r(p, shares_list, w_list, c):
 
 def __DLEQ_calc_r(p, w, alpha, c):
     '''
-    Calulates a r value for use in both DLEQ single object and list versions.
+    Calculates a r value for use in both DLEQ single object and list versions.
     '''
     r = (w - c * alpha) % p
     return r
